@@ -1,0 +1,15 @@
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+llm4re/
+
+# Tool caches
+.crytic_compile/
+crytic_export/
+*.log
+
+# editor
+.vscode/
