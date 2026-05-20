@@ -24,8 +24,8 @@ abstract contract ReentrancyGuard {
 }
 
 contract FixedAirdrop is ReentrancyGuard {
-    mapping (address => uint256) private userBalances;
-    mapping (address => bool) private receivedAirdrops;
+    mapping(address => uint256) private userBalances;
+    mapping(address => bool) private receivedAirdrops;
 
     uint256 public immutable airdropAmount;
 
@@ -35,21 +35,29 @@ contract FixedAirdrop is ReentrancyGuard {
 
     // FIX: 1. Apply mutex lock (noReentrant) as the first modifier
     // FIX: 2. Call canReceiveAirdrop before neverReceiveAirdrop
-    function receiveAirdrop() external noReentrant canReceiveAirdrop neverReceiveAirdrop {
+    function receiveAirdrop()
+        external
+        noReentrant
+        canReceiveAirdrop
+        neverReceiveAirdrop
+    {
         // Mint Airdrop
         userBalances[msg.sender] += airdropAmount;
         receivedAirdrops[msg.sender] = true;
     }
 
-    modifier neverReceiveAirdrop {
-        require(!receivedAirdrops[msg.sender], "You already received an Airdrop");
+    modifier neverReceiveAirdrop() {
+        require(
+            !receivedAirdrops[msg.sender],
+            "You already received an Airdrop"
+        );
         _;
     }
 
-    // In this example, the _isContract() function is used for checking 
+    // In this example, the _isContract() function is used for checking
     // an airdrop compatibility only, not checking for any security aspects
     function _isContract(address _account) internal view returns (bool) {
-        // It is unsafe to assume that an address for which this function returns 
+        // It is unsafe to assume that an address for which this function returns
         // false is an externally-owned account (EOA) and not a contract
         uint256 size;
         assembly {
@@ -63,10 +71,10 @@ contract FixedAirdrop is ReentrancyGuard {
     modifier canReceiveAirdrop() {
         // If the caller is a smart contract, check if it can receive an airdrop
         if (_isContract(msg.sender)) {
-            // In this example, the _isContract() function is used for checking 
+            // In this example, the _isContract() function is used for checking
             // an airdrop compatibility only, not checking for any security aspects
             require(
-                IAirdropReceiver(msg.sender).canReceiveAirdrop(), 
+                IAirdropReceiver(msg.sender).canReceiveAirdrop(),
                 "Receiver cannot receive an airdrop"
             );
         }

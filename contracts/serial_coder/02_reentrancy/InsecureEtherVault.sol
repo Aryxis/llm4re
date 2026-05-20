@@ -11,7 +11,7 @@
 pragma solidity 0.8.13;
 
 contract InsecureEtherVault {
-    mapping (address => uint256) private userBalances;
+    mapping(address => uint256) private userBalances;
 
     function deposit() external payable {
         userBalances[msg.sender] += msg.value;

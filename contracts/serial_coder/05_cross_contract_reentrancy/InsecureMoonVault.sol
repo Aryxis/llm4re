@@ -20,12 +20,14 @@ contract InsecureMoonVault is ReentrancyGuard {
         moonToken = _moonToken;
     }
 
-    function deposit() external payable noReentrant {  // Apply the noReentrant modifier
+    function deposit() external payable noReentrant {
+        // Apply the noReentrant modifier
         bool success = moonToken.mint(msg.sender, msg.value);
         require(success, "Failed to mint token");
     }
 
-    function withdrawAll() external noReentrant {  // Apply the noReentrant modifier
+    function withdrawAll() external noReentrant {
+        // Apply the noReentrant modifier
         uint256 balance = getUserBalance(msg.sender);
         require(balance > 0, "Insufficient balance");
 

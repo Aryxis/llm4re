@@ -13,7 +13,7 @@ pragma solidity 0.8.13;
 import "./Dependencies.sol";
 
 contract InsecureEtherVault is ReentrancyGuard {
-    mapping (address => uint256) private userBalances;
+    mapping(address => uint256) private userBalances;
 
     function deposit() external payable {
         userBalances[msg.sender] += msg.value;
@@ -21,12 +21,13 @@ contract InsecureEtherVault is ReentrancyGuard {
 
     function transfer(address _to, uint256 _amount) external {
         if (userBalances[msg.sender] >= _amount) {
-           userBalances[_to] += _amount;
-           userBalances[msg.sender] -= _amount;
+            userBalances[_to] += _amount;
+            userBalances[msg.sender] -= _amount;
         }
     }
 
-    function withdrawAll() external noReentrant {  // Apply the noReentrant modifier
+    function withdrawAll() external noReentrant {
+        // Apply the noReentrant modifier
         uint256 balance = getUserBalance(msg.sender);
         require(balance > 0, "Insufficient balance");
 
