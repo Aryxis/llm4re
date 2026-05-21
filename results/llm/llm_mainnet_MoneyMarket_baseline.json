@@ -1,0 +1,32 @@
+{
+  "target": "mainnet_MoneyMarket",
+  "mode": "baseline",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "classic-reentrancy",
+    "vulnerable_functions": [
+      "MoneyMarket.borrow()",
+      "MoneyMarket.withdraw()",
+      "MoneyMarket.supply()",
+      "MoneyMarket.repayBorrow()",
+      "MoneyMarket.liquidateBorrow()",
+      "MoneyMarket._withdrawEquity()"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "MoneyMarket.sol",
+        "lines": [
+          839,
+          1000,
+          1145,
+          1240,
+          1365,
+          692
+        ]
+      }
+    ],
+    "severity": "high",
+    "reasoning": "The market-changing functions perform external ERC-20 calls via doTransferOut/doTransferIn before all relevant state is finalized, which creates a reentrancy surface if a token is malicious and its transfer hooks reenter. In `borrow()` and `withdraw()` the protocol computes values, then makes the external token transfer, and only afterward updates `market.*` and the caller’s balance at lines around 1145/1000; a reentrant call could observe stale balances and market indices. Likewise `supply()`, `repayBorrow()`, `liquidateBorrow()`, and `_withdrawEquity()` all rely on external token interactions with state updates following later in the same function. Although many checks are done before the transfer, the contract does not use a reentrancy guard, so cross-function reentry into sibling entrypoints that share the same storage is possible."
+  }
+}

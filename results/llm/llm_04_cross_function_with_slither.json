@@ -1,0 +1,33 @@
+{
+  "target": "04_cross_function",
+  "mode": "with_slither",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "cross-function",
+    "vulnerable_functions": [
+      "InsecureEtherVault.withdrawAll()",
+      "InsecureEtherVault.transfer(address,uint256)"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "InsecureEtherVault.sol",
+        "lines": [
+          29,
+          34,
+          37
+        ]
+      },
+      {
+        "file": "InsecureEtherVault.sol",
+        "lines": [
+          22,
+          25,
+          26
+        ]
+      }
+    ],
+    "severity": "high",
+    "reasoning": "`withdrawAll()` sends Ether to `msg.sender` via `call` at line 34 before clearing `userBalances[msg.sender]` at line 37, so the caller can reenter while their balance is still stale. Although `noReentrant` protects `withdrawAll()` itself, the lock is released only after the function returns, and the external call can still reenter sibling functions that use the same `userBalances` state. In particular, `transfer()` (lines 22-27) can be invoked during the callback to move the victim’s balance to another address before `withdrawAll()` zeros it, which is a cross-function reentrancy issue. Slither’s warning is consistent with this: the vulnerable shared state is `userBalances`, and the issue is not just the delayed zeroing in `withdrawAll()` but the interaction with `transfer()`."
+  }
+}

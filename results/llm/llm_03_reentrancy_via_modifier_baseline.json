@@ -1,0 +1,13 @@
+{
+  "target": "03_reentrancy_via_modifier",
+  "mode": "baseline",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": false,
+    "vulnerability_type": "none",
+    "vulnerable_functions": [],
+    "vulnerable_lines": [],
+    "severity": "none",
+    "reasoning": "In `InsecureAirdrop.receiveAirdrop()` the only external interaction is the call to `IAirdropReceiver(msg.sender).canReceiveAirdrop()` inside the `canReceiveAirdrop` modifier, but the state changes (`userBalances[msg.sender] += airdropAmount;` and `receivedAirdrops[msg.sender] = true;`) happen immediately after and before any subsequent external effect. The `neverReceiveAirdrop` modifier is also safe here because it performs its check before `_;`, so it does not create an illusory post-`_;` guard. There is no state update deferred until after an external call, and no sibling function is exposed that could exploit stale shared state during reentry."
+  }
+}

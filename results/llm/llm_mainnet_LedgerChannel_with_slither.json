@@ -1,0 +1,31 @@
+{
+  "target": "mainnet_LedgerChannel",
+  "mode": "with_slither",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "classic-reentrancy",
+    "vulnerable_functions": [
+      "LedgerChannel.consensusCloseChannel()",
+      "LedgerChannel.byzantineCloseChannel()"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "LedgerChannel.sol",
+        "lines": [
+          356,
+          360
+        ]
+      },
+      {
+        "file": "LedgerChannel.sol",
+        "lines": [
+          592,
+          599
+        ]
+      }
+    ],
+    "severity": "medium",
+    "reasoning": "Both `consensusCloseChannel()` and `byzantineCloseChannel()` perform external value transfers before completing all state updates. In `consensusCloseChannel()` (around lines 356-360), ETH/token transfers are made after setting `isOpen = false`, but before `numChannels--` and `delete Channels[_lcID]`; because the token transfer is an external call to an arbitrary token contract, a malicious token could reenter sibling functions while channel state is still partially live. In `byzantineCloseChannel()` (around lines 592-599), ETH/token transfers happen after zeroing balances but before `channel.isOpen = false` and `numChannels--`, leaving the channel marked open during the external calls and enabling reentrancy into other channel functions that rely on `isOpen`/`numChannels`. The issue is classic reentrancy rather than a modifier issue, and the impact is medium because the contract appears to zero balances before payout, which limits direct theft but still leaves stale state observable during the callback."
+  }
+}

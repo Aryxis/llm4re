@@ -1,0 +1,24 @@
+{
+  "target": "05_cross_contract",
+  "mode": "with_slither",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "cross-contract",
+    "vulnerable_functions": [
+      "InsecureMoonVault.withdrawAll()"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "InsecureMoonVault.sol",
+        "lines": [
+          23,
+          27,
+          30
+        ]
+      }
+    ],
+    "severity": "high",
+    "reasoning": "In InsecureMoonVault.withdrawAll() the contract sends Ether to msg.sender with call{value: balance} before it updates the shared token state by calling moonToken.burnAccount(msg.sender). Because MoonToken.balanceOf(msg.sender) is used as the withdrawal balance, a malicious recipient can reenter during the external Ether transfer while its MOON balance is still intact in the MoonToken contract. This is a cross-contract reentrancy issue: the vault’s Ether state and the token’s balance state are not updated atomically, allowing repeated withdrawals against the stale token balance."
+  }
+}

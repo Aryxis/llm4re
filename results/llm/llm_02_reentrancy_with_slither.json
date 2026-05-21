@@ -1,0 +1,25 @@
+{
+  "target": "02_reentrancy",
+  "mode": "with_slither",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "classic-reentrancy",
+    "vulnerable_functions": [
+      "InsecureEtherVault.withdrawAll()"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "contracts/serial_coder/02_reentrancy/InsecureEtherVault.sol",
+        "lines": [
+          20,
+          24,
+          27,
+          28
+        ]
+      }
+    ],
+    "severity": "high",
+    "reasoning": "InsecureEtherVault.withdrawAll() performs an արտաքին ETH transfer with msg.sender.call{value: balance}() at line 24 before zeroing userBalances[msg.sender] at line 27. A malicious recipient can reenter withdrawAll() during the call while the balance is still non-zero and drain funds repeatedly, which is the classic checks-effects-interactions violation. Slither’s cross-function note is also valid because deposit() and getUserBalance(address) read/write the same stale storage, but the primary issue is the reentrancy in withdrawAll()."
+  }
+}

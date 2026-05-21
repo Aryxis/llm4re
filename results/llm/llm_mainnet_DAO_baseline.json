@@ -1,0 +1,61 @@
+{
+  "target": "mainnet_DAO",
+  "mode": "baseline",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "classic-reentrancy",
+    "vulnerable_functions": [
+      "ManagedAccount.payOut(address,uint)",
+      "TokenCreation.refund()",
+      "DAO.executeProposal(uint,bytes)",
+      "DAO.retrieveDAOReward(bool)",
+      "DAO.withdrawRewardFor(address)"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "DAO.sol",
+        "lines": [
+          182,
+          183
+        ]
+      },
+      {
+        "file": "DAO.sol",
+        "lines": [
+          287,
+          288,
+          289,
+          290
+        ]
+      },
+      {
+        "file": "DAO.sol",
+        "lines": [
+          478,
+          479
+        ]
+      },
+      {
+        "file": "DAO.sol",
+        "lines": [
+          535,
+          536,
+          537,
+          538
+        ]
+      },
+      {
+        "file": "DAO.sol",
+        "lines": [
+          562,
+          563,
+          564,
+          565
+        ]
+      }
+    ],
+    "severity": "high",
+    "reasoning": "The code contains multiple external-value-transfer patterns where state is updated only after a call to an untrusted recipient. In `ManagedAccount.payOut()` the `call.value(_amount)()` at lines 182-183 happens before any accounting update, and this helper is used by `TokenCreation.refund()` as well as reward-withdrawal paths. In `DAO.executeProposal()` the external call to `p.recipient.call.value(p.amount)(_transactionData)` at lines 478-479 occurs before `p.proposalPassed` is finalized and before the proposal is closed, so a malicious recipient can reenter sibling functions that depend on proposal/accounting state. Similarly, `retrieveDAOReward()` and `withdrawRewardFor()` perform `payOut()` before updating `DAOpaidOut`/`paidOut`, enabling reentrancy against reward accounting."
+  }
+}

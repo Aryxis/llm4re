@@ -1,0 +1,23 @@
+{
+  "target": "02_reentrancy",
+  "mode": "baseline",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "classic-reentrancy",
+    "vulnerable_functions": [
+      "InsecureEtherVault.withdrawAll()"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "InsecureEtherVault.sol",
+        "lines": [
+          18,
+          21
+        ]
+      }
+    ],
+    "severity": "high",
+    "reasoning": "In InsecureEtherVault.withdrawAll(), the contract sends Ether to msg.sender with call{value: balance} before setting userBalances[msg.sender] to 0. Because msg.sender is an external untrusted contract, it can reenter withdrawAll() during the call and observe the stale balance, draining funds multiple times. The vulnerable pattern is on lines 18-21, where the effects update happens after the interaction."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "target": "04_cross_function",
+  "mode": "baseline",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "cross-function",
+    "vulnerable_functions": [
+      "InsecureEtherVault.withdrawAll()",
+      "InsecureEtherVault.transfer(address,uint256)"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "InsecureEtherVault.sol",
+        "lines": [
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ]
+      },
+      {
+        "file": "Dependencies.sol",
+        "lines": [
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      }
+    ],
+    "severity": "high",
+    "reasoning": "`withdrawAll()` in InsecureEtherVault.sol sends Ether to `msg.sender` with `call{value: balance}` at line 25 before zeroing `userBalances[msg.sender]` at line 28, so the external recipient can reenter. Although `withdrawAll()` uses `noReentrant`, the guard only blocks reentering the same function; a reentrant call into the sibling `transfer(address,uint256)` function is still possible because it does not use the modifier and mutates the same `userBalances` mapping. This creates a cross-function reentrancy path where the balance checked in `withdrawAll()` becomes stale during the external call, allowing inconsistent state updates and potential theft or balance manipulation."
+  }
+}

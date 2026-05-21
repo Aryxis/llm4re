@@ -1,0 +1,13 @@
+{
+  "target": "04_cross_function_fixed",
+  "mode": "baseline",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": false,
+    "vulnerability_type": "none",
+    "vulnerable_functions": [],
+    "vulnerable_lines": [],
+    "severity": "none",
+    "reasoning": "The contract is not vulnerable to reentrancy in the provided fixed version. In FixedEtherVault.withdrawAll() the balance is read, then userBalances[msg.sender] is set to 0 before the external call to msg.sender.call{value: balance}(), so the checks-effects-interactions pattern is correctly applied. The noReentrant modifier from ReentrancyGuard also blocks reentry while withdrawAll() is executing. The sibling function transfer() does update shared storage, but it does not perform any external calls, so there is no cross-function reentrancy path left in this version."
+  }
+}

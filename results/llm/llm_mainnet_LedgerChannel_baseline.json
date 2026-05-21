@@ -1,0 +1,31 @@
+{
+  "target": "mainnet_LedgerChannel",
+  "mode": "baseline",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "classic-reentrancy",
+    "vulnerable_functions": [
+      "LedgerChannel.byzantineCloseChannel()"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "LedgerChannel.sol",
+        "lines": [
+          496,
+          497,
+          498,
+          499,
+          501,
+          502,
+          503,
+          506,
+          510,
+          511
+        ]
+      }
+    ],
+    "severity": "medium",
+    "reasoning": "`LedgerChannel.byzantineCloseChannel()` contains an external interaction before the contract is fully finalized: it sends ETH to `partyAddresses[0]` and `partyAddresses[1]` via `transfer()` and only sets `channel.isOpen = false` and decrements `numChannels` afterward. Although `transfer()` forwards limited gas, this is still an external call to untrusted recipients while shared channel state remains partially live, and the function itself even labels this block as “reentrancy”. Reentry could target other `LedgerChannel` functions that only check `isOpen` or related channel fields before the close is recorded, making this a cross-function/classic reentrancy pattern. The most relevant lines are the balance-sending lines followed by the final state updates in `LedgerChannel.sol` around 496-511."
+  }
+}

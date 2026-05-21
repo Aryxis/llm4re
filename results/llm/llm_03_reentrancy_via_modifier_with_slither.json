@@ -1,0 +1,31 @@
+{
+  "target": "03_reentrancy_via_modifier",
+  "mode": "with_slither",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "reentrancy-via-modifier",
+    "vulnerable_functions": [
+      "InsecureAirdrop.receiveAirdrop()",
+      "InsecureAirdrop.canReceiveAirdrop()"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "InsecureAirdrop.sol",
+        "lines": [
+          25,
+          26,
+          27,
+          28,
+          31,
+          58,
+          59,
+          60,
+          61
+        ]
+      }
+    ],
+    "severity": "medium",
+    "reasoning": "InsecureAirdrop.receiveAirdrop() performs an external call inside the canReceiveAirdrop() modifier before it updates userBalances[msg.sender] and receivedAirdrops[msg.sender] at lines 27-28. Because neverReceiveAirdrop() only checks the flag before _; and the flag is set after the external call, a malicious receiver can reenter via its canReceiveAirdrop() callback and pass the modifier again. This is a reentrancy-via-modifier pattern, and it can also affect the shared receivedAirdrops state used by hasReceivedAirdrop() and neverReceiveAirdrop()."
+  }
+}

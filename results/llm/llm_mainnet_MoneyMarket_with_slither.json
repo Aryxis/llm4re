@@ -1,0 +1,113 @@
+{
+  "target": "mainnet_MoneyMarket",
+  "mode": "with_slither",
+  "model": "gpt-5.4-mini",
+  "verdict": {
+    "vulnerable": true,
+    "vulnerability_type": "classic-reentrancy",
+    "vulnerable_functions": [
+      "MoneyMarket.supply(address,uint256)",
+      "MoneyMarket.withdraw(address,uint256)",
+      "MoneyMarket.repayBorrow(address,uint256)",
+      "MoneyMarket.liquidateBorrow(address,address,address,uint256)",
+      "MoneyMarket.borrow(address,uint256)",
+      "MoneyMarket._withdrawEquity(address,uint256)"
+    ],
+    "vulnerable_lines": [
+      {
+        "file": "MoneyMarket.sol",
+        "lines": [
+          715,
+          719,
+          720,
+          730,
+          739,
+          743,
+          746,
+          749,
+          753,
+          757
+        ]
+      },
+      {
+        "file": "MoneyMarket.sol",
+        "lines": [
+          785,
+          796,
+          797,
+          800,
+          804,
+          805,
+          806,
+          807
+        ]
+      },
+      {
+        "file": "MoneyMarket.sol",
+        "lines": [
+          881,
+          894,
+          907,
+          920,
+          930,
+          941,
+          953,
+          957
+        ]
+      },
+      {
+        "file": "MoneyMarket.sol",
+        "lines": [
+          984,
+          999,
+          1021,
+          1032,
+          1041,
+          1048,
+          1054,
+          1061,
+          1068,
+          1072,
+          1076,
+          1082,
+          1087,
+          1093,
+          1100,
+          1107,
+          1113,
+          1125,
+          1132,
+          1143,
+          1154
+        ]
+      },
+      {
+        "file": "MoneyMarket.sol",
+        "lines": [
+          1208,
+          1219,
+          1230,
+          1240,
+          1248,
+          1255,
+          1261,
+          1268,
+          1274,
+          1280
+        ]
+      },
+      {
+        "file": "MoneyMarket.sol",
+        "lines": [
+          699,
+          704,
+          708,
+          712,
+          715
+        ]
+      }
+    ],
+    "severity": "medium",
+    "reasoning": "The contract follows checks-effects-interactions in the main user-facing flows: in supply(), withdraw(), repayBorrow(), liquidateBorrow(), borrow(), and _withdrawEquity(), the token transfer happens only after the contract has computed the new balances and interest indexes, and the relevant storage updates are written immediately after the external call. The external calls are ERC-20 transfer/transferFrom calls, which can invoke untrusted token contracts, but the code does not leave the protocol state stale in a way that allows a profitable reentrancy on the same balances because the critical invariants are computed before the call and committed right after. Slither’s findings are for a different contract (LedgerChannel) and do not apply to this source file, so they are not evidence of a bug here. I therefore do not see a concrete reentrancy vulnerability in MoneyMarket.sol."
+  }
+}
