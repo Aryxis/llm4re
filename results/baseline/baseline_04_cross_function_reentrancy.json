@@ -9,8 +9,8 @@
             "type": "function",
             "name": "withdrawAll",
             "source_mapping": {
-              "start": 1137,
-              "length": 348,
+              "start": 1138,
+              "length": 355,
               "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
@@ -24,7 +24,8 @@
                 34,
                 35,
                 36,
-                37
+                37,
+                38
               ],
               "starting_column": 5,
               "ending_column": 6
@@ -35,7 +36,7 @@
                 "name": "InsecureEtherVault",
                 "source_mapping": {
                   "start": 712,
-                  "length": 998,
+                  "length": 1006,
                   "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                   "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                   "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
@@ -76,7 +77,7 @@
                     47
                   ],
                   "starting_column": 1,
-                  "ending_column": 0
+                  "ending_column": 2
                 }
               },
               "signature": "withdrawAll()"
@@ -86,14 +87,14 @@
             "type": "node",
             "name": "(success,None) = msg.sender.call{value: balance}()",
             "source_mapping": {
-              "start": 1335,
+              "start": 1343,
               "length": 54,
               "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "is_dependency": false,
               "lines": [
-                33
+                34
               ],
               "starting_column": 9,
               "ending_column": 63
@@ -103,8 +104,8 @@
                 "type": "function",
                 "name": "withdrawAll",
                 "source_mapping": {
-                  "start": 1137,
-                  "length": 348,
+                  "start": 1138,
+                  "length": 355,
                   "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                   "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                   "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
@@ -118,7 +119,8 @@
                     34,
                     35,
                     36,
-                    37
+                    37,
+                    38
                   ],
                   "starting_column": 5,
                   "ending_column": 6
@@ -129,7 +131,7 @@
                     "name": "InsecureEtherVault",
                     "source_mapping": {
                       "start": 712,
-                      "length": 998,
+                      "length": 1006,
                       "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                       "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                       "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
@@ -170,7 +172,7 @@
                         47
                       ],
                       "starting_column": 1,
-                      "ending_column": 0
+                      "ending_column": 2
                     }
                   },
                   "signature": "withdrawAll()"
@@ -185,14 +187,14 @@
             "type": "node",
             "name": "userBalances[msg.sender] = 0",
             "source_mapping": {
-              "start": 1450,
+              "start": 1458,
               "length": 28,
               "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
               "is_dependency": false,
               "lines": [
-                36
+                37
               ],
               "starting_column": 9,
               "ending_column": 37
@@ -202,8 +204,8 @@
                 "type": "function",
                 "name": "withdrawAll",
                 "source_mapping": {
-                  "start": 1137,
-                  "length": 348,
+                  "start": 1138,
+                  "length": 355,
                   "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                   "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                   "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
@@ -217,7 +219,8 @@
                     34,
                     35,
                     36,
-                    37
+                    37,
+                    38
                   ],
                   "starting_column": 5,
                   "ending_column": 6
@@ -228,7 +231,7 @@
                     "name": "InsecureEtherVault",
                     "source_mapping": {
                       "start": 712,
-                      "length": 998,
+                      "length": 1006,
                       "filename_relative": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                       "filename_absolute": "/home/arys/code/llm4re/contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
                       "filename_short": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol",
@@ -269,7 +272,7 @@
                         47
                       ],
                       "starting_column": 1,
-                      "ending_column": 0
+                      "ending_column": 2
                     }
                   },
                   "signature": "withdrawAll()"
@@ -282,10 +285,10 @@
             }
           }
         ],
-        "description": "Reentrancy in InsecureEtherVault.withdrawAll() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#29-37):\n\tExternal calls:\n\t- (success,None) = msg.sender.call{value: balance}() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#33)\n\tState variables written after the call(s):\n\t- userBalances[msg.sender] = 0 (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#36)\n\tInsecureEtherVault.userBalances (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#16) can be used in cross function reentrancies:\n\t- InsecureEtherVault.deposit() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#18-20)\n\t- InsecureEtherVault.getUserBalance(address) (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#43-45)\n\t- InsecureEtherVault.transfer(address,uint256) (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#22-27)\n\t- InsecureEtherVault.withdrawAll() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#29-37)\n",
-        "markdown": "Reentrancy in [InsecureEtherVault.withdrawAll()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L29-L37):\n\tExternal calls:\n\t- [(success,None) = msg.sender.call{value: balance}()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L33)\n\tState variables written after the call(s):\n\t- [userBalances[msg.sender] = 0](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L36)\n\t[InsecureEtherVault.userBalances](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L16) can be used in cross function reentrancies:\n\t- [InsecureEtherVault.deposit()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L18-L20)\n\t- [InsecureEtherVault.getUserBalance(address)](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L43-L45)\n\t- [InsecureEtherVault.transfer(address,uint256)](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L22-L27)\n\t- [InsecureEtherVault.withdrawAll()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L29-L37)\n",
-        "first_markdown_element": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L29-L37",
-        "id": "0e98a9ff8335082a9a31a06f549d1c2c81fac2a170b004b7de169c22b77ba0e6",
+        "description": "Reentrancy in InsecureEtherVault.withdrawAll() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#29-38):\n\tExternal calls:\n\t- (success,None) = msg.sender.call{value: balance}() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#34)\n\tState variables written after the call(s):\n\t- userBalances[msg.sender] = 0 (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#37)\n\tInsecureEtherVault.userBalances (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#16) can be used in cross function reentrancies:\n\t- InsecureEtherVault.deposit() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#18-20)\n\t- InsecureEtherVault.getUserBalance(address) (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#44-46)\n\t- InsecureEtherVault.transfer(address,uint256) (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#22-27)\n\t- InsecureEtherVault.withdrawAll() (contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#29-38)\n",
+        "markdown": "Reentrancy in [InsecureEtherVault.withdrawAll()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L29-L38):\n\tExternal calls:\n\t- [(success,None) = msg.sender.call{value: balance}()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L34)\n\tState variables written after the call(s):\n\t- [userBalances[msg.sender] = 0](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L37)\n\t[InsecureEtherVault.userBalances](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L16) can be used in cross function reentrancies:\n\t- [InsecureEtherVault.deposit()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L18-L20)\n\t- [InsecureEtherVault.getUserBalance(address)](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L44-L46)\n\t- [InsecureEtherVault.transfer(address,uint256)](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L22-L27)\n\t- [InsecureEtherVault.withdrawAll()](contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L29-L38)\n",
+        "first_markdown_element": "contracts/serial_coder/04_cross_function_reentrancy/InsecureEtherVault.sol#L29-L38",
+        "id": "9c5cb6f96c9f47dec20eb4d14cc64fb6c0f9ba34bc33e5df3b6127f5c0ec3008",
         "check": "reentrancy-eth",
         "impact": "High",
         "confidence": "Medium"
