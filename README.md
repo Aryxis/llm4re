@@ -85,7 +85,7 @@ contracts/*.sol  --+                                           +--> prompt --> g
 | 文件 | 作用 |
 |---|---|
 | [`prompts/system.md`](prompts/system.md) | System prompt：定义"重入审计员"角色、覆盖 4 种变体的定义、强制 JSON 输出 schema |
-| [`prompts/user_template.md`](prompts/user_template.md) | User prompt 模板：注入目标 ID、源码块、可选的 Slither findings 块 |
+| [`prompts/user.md`](prompts/user.md) | User prompt 模板：注入目标 ID、源码块、可选的 Slither findings 块 |
 | [`src/slither_summary.py`](src/slither_summary.py) | 把 `results/baseline/baseline_*.json` 压缩成 `[{check, impact, confidence, signature, lines, description}]` 列表，供 LLM 参考 |
 | [`src/llm_analyze.py`](src/llm_analyze.py) | 主流程：硬编码 `TARGETS` dict，逐目标 × 模式调用 LLM，已有结果自动跳过 |
 
